@@ -1,4 +1,7 @@
 #!/bin/bash
+
+touch /tmp/youtubeurl
+
 function loop(){
 	sleep 2
 	url=`xclip -selection clipboard -o` 
