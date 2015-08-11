@@ -1,20 +1,34 @@
 #!/bin/bash
 
+#mpv arguments
+mpvargs="--hwdec vaapi --fs"
+
+#Video formats to be pulled by youtube-dl
+mpvquality="--ytdl-format=bestvideo[ext=mp4]+bestaudio[ext=m4a]"
+
+#Create file to store last URL
 touch /tmp/youtubeurl
 
 function loop(){
+	#Sleep to prevent while loop spam
 	sleep 2
+	#Store the current selection
 	url=`xclip -selection clipboard -o` 
+	#If the URL matches the stored URL abort the function
 	if [[ `cat /tmp/youtubeurl` == "$url" ]]
 	then
 		return
 	fi
+	#Match the clipboard contents based on string and make sure mpv isn't already running
 	if [[ $url == *"youtube"* && `pgrep mpv` == "" ]]
 	then
+		#If above is true then store the new URL to the file
 		echo "$url" > /tmp/youtubeurl
-		mpv --hwdec vaapi --ytdl-format=bestvideo[ext=mp4]+bestaudio[ext=m4a] "$url"
+		#Play the video
+		mpv $mpvargs $mpvquality "$url"
 	fi
 }
+#Loop until Ctrl-C
 while(true)
 do
 	loop
