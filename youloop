@@ -20,7 +20,7 @@ function loop(){
 		return
 	fi
 	#Match the clipboard contents based on string and make sure mpv isn't already running
-	if [[ $url == *"youtube"* && `pgrep mpv` == "" ]]
+	if [[ $url == *"youtube"* || *"youtu.be"* && `pgrep mpv` == "" ]]
 	then
 		#If above is true then store the new URL to the file
 		echo "$url" > /tmp/youtubeurl
