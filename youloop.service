@@ -1,0 +1,9 @@
+[Unit]
+Description=Service to monitor for Youtube URLs and play them
+
+[Service]
+ExecStart=/usr/bin/youloop
+ExecStop=killall youloop
+
+[Install]
+WantedBy=multi-user.target
