@@ -13,5 +13,5 @@ uninstall:
 
 install-deps:
 	# This must all be run on one line to stay within the same subshell
-	if [ -f /etc/debian_version ] ; then sudo apt-get update ; sudo apt-get install xclip mpv -y ; fi
+	if [ -f /etc/debian_version ] ; then sudo apt-get update ; sudo apt-get install xclip youtube-dl mpv -y ; fi
 
