@@ -1,0 +1,18 @@
+#!/bin/bash
+function loop(){
+	sleep 2
+	url=`xclip -selection clipboard -o` 
+	if [[ `cat /tmp/youtubeurl` == "$url" ]]
+	then
+		return
+	fi
+	if [[ $url == *"youtube"* && `pgrep mpv` == "" ]]
+	then
+		echo "$url" > /tmp/youtubeurl
+		mpv --hwdec vaapi --ytdl-format=bestvideo[ext=mp4]+bestaudio[ext=m4a] "$url"
+	fi
+}
+while(true)
+do
+	loop
+done
