@@ -2,7 +2,8 @@
 Description=Service to monitor for Youtube URLs and play them
 
 [Service]
-ExecStart=/usr/bin/youloop
+Environment="DISPLAY=:0"
+ExecStart=/usr/local/bin/youloop
 ExecStop=killall youloop
 
 [Install]
