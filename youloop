@@ -9,8 +9,8 @@ function loop(){
 	mpv=`pgrep mpv`
 	if [[ $url == *"youtube"* && $mpv == "" ]]
 	then
-		mpv --hwdec vaapi --ytdl-format=bestvideo[ext=mp4]+bestaudio[ext=m4a] "$url"
 		echo "$url" > /tmp/youtubeurl
+		mpv --hwdec vaapi --ytdl-format=bestvideo[ext=mp4]+bestaudio[ext=m4a] "$url"
 	fi
 }
 while(true)
