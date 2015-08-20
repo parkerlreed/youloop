@@ -8,6 +8,7 @@ mpvquality="--ytdl-format=bestvideo[ext=mp4]+bestaudio[ext=m4a]"
 
 #Create file to store last URL
 touch /tmp/videourl
+touch /tmp/videostatus
 
 function loop(){
 	#Sleep to prevent while loop spam
@@ -30,7 +31,13 @@ play() {
 	#If above is true then store the new URL to the file
 	echo "$url" > /tmp/videourl
 	#Play the video
-	mpv $mpvargs $2 "$1"
+	mpv $mpvargs $2 "$1" & status
+}
+
+status() {
+	echo "Loading" > /tmp/videostatus
+	sleep 10
+	echo "" > /tmp/videostatus
 }
 
 #Loop until Ctrl-C
