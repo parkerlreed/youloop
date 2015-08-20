@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #mpv arguments
-mpvargs="--hwdec vaapi --fs"
+mpvargs="--hwdec no --fs"
 
 #Video formats to be pulled by youtube-dl
 mpvquality="--ytdl-format=bestvideo[ext=mp4]+bestaudio[ext=m4a]"
@@ -20,10 +20,10 @@ function loop(){
 		return
 	fi
 	#Match the clipboard contents based on string and make sure mpv isn't already running
-	if [[ $url == *"youtube"* || *"youtu.be"* && `pgrep mpv` == "" ]]
+	if [[ $url == *"you"* && `pgrep mpv` == "" ]]
 	then
 		#If above is true then store the new URL to the file
-		echo "$url" > /tmp/youtubeurl
+		echo "$url"
 		#Play the video
 		mpv $mpvargs $mpvquality "$url"
 	fi
