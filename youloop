@@ -7,27 +7,29 @@ mpvargs="--hwdec no --fs"
 mpvquality="--ytdl-format=bestvideo[ext=mp4]+bestaudio[ext=m4a]"
 
 #Create file to store last URL
-touch /tmp/youtubeurl
+touch /tmp/videourl
 
 function loop(){
 	#Sleep to prevent while loop spam
 	sleep 2
 	#Store the current selection
 	url=`xclip -selection clipboard -o` 
-	#If the URL matches the stored URL abort the function
-	if [[ `cat /tmp/youtubeurl` == "$url" ]]
-	then
-		return
-	fi
-	#Match the clipboard contents based on string and make sure mpv isn't already running
-	if [[ $url == *"you"* && `pgrep mpv` == "" ]]
-	then
-		#If above is true then store the new URL to the file
-		echo "$url" > /tmp/youtubeurl
-		#Play the video
-		mpv $mpvargs $mpvquality "$url"
-	fi
+	if [[ $url == "$(cat /tmp/videourl)" ]]; then return; fi
+	case "$url" in
+		*youtube*) play $mpvquality ;;
+		*youtu.be*) play $mpvquality ;;
+		*vimeo*) play ;;
+		*) return ;;
+	esac
 }
+
+play() {
+	#If above is true then store the new URL to the file
+	echo "$url" > /tmp/videourl
+	#Play the video
+	mpv $mpvargs $1 "$url"
+}
+
 #Loop until Ctrl-C
 while(true)
 do
