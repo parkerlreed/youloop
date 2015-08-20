@@ -23,7 +23,7 @@ function loop(){
 	if [[ $url == *"you"* && `pgrep mpv` == "" ]]
 	then
 		#If above is true then store the new URL to the file
-		echo "$url"
+		echo "$url" > /tmp/youtubeurl
 		#Play the video
 		mpv $mpvargs $mpvquality "$url"
 	fi
