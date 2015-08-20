@@ -19,6 +19,8 @@ function loop(){
 		*youtube*) play $mpvquality ;;
 		*youtu.be*) play $mpvquality ;;
 		*vimeo*) play ;;
+		*twitch*) play ;;
+		*.cc.com*) play ;;
 		*) return ;;
 	esac
 }
