@@ -16,11 +16,12 @@ function loop(){
 	url=`xclip -selection clipboard -o` 
 	if [[ $url == "$(cat /tmp/videourl)" ]]; then return; fi
 	case "$url" in
-		*youtube*) play $mpvquality ;;
-		*youtu.be*) play $mpvquality ;;
-		*vimeo*) play ;;
-		*twitch*) play ;;
-		*.cc.com*) play ;;
+		*youtube*) play "$url" $mpvquality ;;
+		*youtu.be*) play "$url" $mpvquality ;;
+		*vimeo*) play "$url";;
+		*twitch*) play "$url" ;;
+		*.cc.com*) play "$url" ;;
+		*ted.com*) play "$url" ;;
 		*) return ;;
 	esac
 }
@@ -29,7 +30,7 @@ play() {
 	#If above is true then store the new URL to the file
 	echo "$url" > /tmp/videourl
 	#Play the video
-	mpv $mpvargs $1 "$url"
+	mpv $mpvargs $2 "$1"
 }
 
 #Loop until Ctrl-C
