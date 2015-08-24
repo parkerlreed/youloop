@@ -23,6 +23,7 @@ function loop(){
 		*twitch*) play "$url" ;;
 		*.cc.com*) play "$url" ;;
 		*ted.com*) play "$url" ;;
+		*vine.*) play "$url" ;;
 		*) return ;;
 	esac
 }
