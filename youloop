@@ -15,7 +15,8 @@ function loop(){
 	sleep 2
 	#Store the current selection
 	local url=$(xclip -selection clipboard -o)
-	if [[ $url == "$(cat /tmp/videourl)" ]]; then return; fi
+	local url2=$(cat /tmp/videourl)
+	if [[ "$url" == "$url2" ]]; then return; fi
 	case "$url" in
 		*youtube*) play "$url" "${mpvquality[@]}" ;;
 		*youtu.be*) play "$url" "${mpvquality[@]}" ;;
