@@ -4,7 +4,7 @@
 mpvargs=("--hwdec" "no" "--fs")
 
 #Video formats to be pulled by youtube-dl
-mpvquality=("--ytdl-format=bestvideo[ext=mp4]+bestaudio[ext=m4a]")
+mpvquality=("--ytdl-format=bestvideo[ext=mp4][height<=?1080]+bestaudio[ext=m4a]")
 
 #Create file to store last URL
 touch /tmp/videourl
