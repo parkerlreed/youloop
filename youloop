@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #mpv arguments
-mpvargs="--hwdec no --fs"
+mpvargs=("--hwdec" "no" "--fs")
 
 #Video formats to be pulled by youtube-dl
-mpvquality="--ytdl-format=bestvideo[ext=mp4]+bestaudio[ext=m4a]"
+mpvquality=("--ytdl-format=bestvideo[ext=mp4]+bestaudio[ext=m4a]")
 
 #Create file to store last URL
 touch /tmp/videourl
@@ -14,11 +14,11 @@ function loop(){
 	#Sleep to prevent while loop spam
 	sleep 2
 	#Store the current selection
-	url=`xclip -selection clipboard -o` 
+	local url=$(xclip -selection clipboard -o)
 	if [[ $url == "$(cat /tmp/videourl)" ]]; then return; fi
 	case "$url" in
-		*youtube*) play "$url" $mpvquality ;;
-		*youtu.be*) play "$url" $mpvquality ;;
+		*youtube*) play "$url" "${mpvquality[@]}" ;;
+		*youtu.be*) play "$url" "${mpvquality[@]}" ;;
 		*vimeo*) play "$url";;
 		*twitch*) play "$url" ;;
 		*.cc.com*) play "$url" ;;
@@ -29,10 +29,13 @@ function loop(){
 }
 
 play() {
+	local url="$1"
+	shift # shift means url is no longer in "$@"; the rest of the args are passed to mpv
+	
 	#If above is true then store the new URL to the file
 	echo "$url" > /tmp/videourl
 	#Play the video
-	mpv $mpvargs $2 "$1" & status
+	mpv "${mpvargs[@]}" "$url" "$@" & status
 }
 
 status() {
